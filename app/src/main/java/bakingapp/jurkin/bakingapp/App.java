@@ -18,9 +18,52 @@
 
 package bakingapp.jurkin.bakingapp;
 
+import android.app.Activity;
+import android.app.Application;
+import android.support.v4.app.Fragment;
+
+import com.squareup.leakcanary.LeakCanary;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
 /**
  * Created by Andrej Jurkin on 7/9/17.
  */
 
-public class App {
+public class App extends Application implements HasActivityInjector, HasSupportFragmentInjector {
+
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
+        DaggerAppComponent.builder().app(this).build().inject(this);
+    }
+
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingActivityInjector;
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingFragmentInjector;
+    }
 }
