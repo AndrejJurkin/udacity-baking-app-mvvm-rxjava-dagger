@@ -18,6 +18,8 @@
 
 package bakingapp.jurkin.bakingapp.di;
 
+import android.arch.lifecycle.ViewModelProviders;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -58,7 +60,6 @@ public final class ApiModule {
         Gson gson = new GsonBuilder()
                 .setDateFormat(GSON_DATE_FORMAT)
                 .create();
-
         return gson;
     }
 

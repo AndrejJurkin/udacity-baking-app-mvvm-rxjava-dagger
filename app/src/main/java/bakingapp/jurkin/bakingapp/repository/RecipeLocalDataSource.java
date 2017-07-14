@@ -16,19 +16,11 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.di;
-
-import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListFragment;
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+package bakingapp.jurkin.bakingapp.repository;
 
 /**
- * Created by Andrej Jurkin on 7/9/17.
+ * Created by andrej on 14/07/17.
  */
 
-@Module
-public abstract class FragmentBuilderModule {
-
-    @ContributesAndroidInjector
-    abstract RecipeListFragment contributeRecipeListFragment();
+public class RecipeLocalDataSource {
 }

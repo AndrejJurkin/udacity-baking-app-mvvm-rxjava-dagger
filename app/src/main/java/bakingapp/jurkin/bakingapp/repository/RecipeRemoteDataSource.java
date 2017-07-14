@@ -16,19 +16,30 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.di;
+package bakingapp.jurkin.bakingapp.repository;
 
-import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListFragment;
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import bakingapp.jurkin.bakingapp.data.RecipeService;
+import bakingapp.jurkin.bakingapp.model.Recipe;
+import rx.Observable;
 
 /**
- * Created by Andrej Jurkin on 7/9/17.
+ * Created by andrej on 12/07/17.
  */
 
-@Module
-public abstract class FragmentBuilderModule {
+public class RecipeRemoteDataSource {
 
-    @ContributesAndroidInjector
-    abstract RecipeListFragment contributeRecipeListFragment();
+    private final RecipeService recipeService;
+
+    @Inject
+    public RecipeRemoteDataSource(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
+
+    public Observable<List<Recipe>> getRecipes() {
+        return null;
+    }
 }
