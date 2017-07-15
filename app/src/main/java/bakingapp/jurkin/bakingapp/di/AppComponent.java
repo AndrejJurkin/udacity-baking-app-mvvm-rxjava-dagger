@@ -33,11 +33,9 @@ import dagger.android.AndroidInjectionModule;
 
 @Singleton
 @Component(modules = {
-        AndroidInjectionModule.class,
         AppModule.class,
-        MainActivityModule.class
 })
-public interface AppComponent {
+interface AppComponent {
 
     @Component.Builder
     interface Builder {

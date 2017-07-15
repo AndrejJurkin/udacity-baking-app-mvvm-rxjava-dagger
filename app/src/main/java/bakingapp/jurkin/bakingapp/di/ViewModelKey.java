@@ -18,17 +18,24 @@
 
 package bakingapp.jurkin.bakingapp.di;
 
-import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListFragment;
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import android.arch.lifecycle.ViewModel;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import dagger.MapKey;
 
 /**
- * Created by Andrej Jurkin on 7/9/17.
+ * Created by Andrej Jurkin on 7/15/17.
  */
 
-@Module
-public abstract class FragmentBuilderModule {
-
-    @ContributesAndroidInjector
-    abstract RecipeListFragment contributeRecipeListFragment();
+@Documented
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@MapKey
+@interface ViewModelKey {
+    Class<? extends ViewModel> value();
 }

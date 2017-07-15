@@ -18,17 +18,20 @@
 
 package bakingapp.jurkin.bakingapp.di;
 
-import bakingapp.jurkin.bakingapp.MainActivity;
+import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListViewModel;
+import dagger.Binds;
 import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import dagger.multibindings.IntoMap;
 
 /**
- * Created by Andrej Jurkin on 7/9/17.
+ * Created by Andrej Jurkin on 7/15/17.
  */
 
 @Module
-public abstract class MainActivityModule {
+abstract class ViewModelModule {
 
-    @ContributesAndroidInjector(modules = {FragmentBuilderModule.class})
-    abstract MainActivity contributeMainActivity();
+    @Binds
+    @IntoMap
+    @ViewModelKey(RecipeListViewModel.class)
+    abstract RecipeListViewModel bindRecipeListViewModel();
 }

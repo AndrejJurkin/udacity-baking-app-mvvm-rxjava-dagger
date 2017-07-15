@@ -18,8 +18,6 @@
 
 package bakingapp.jurkin.bakingapp.di;
 
-import android.arch.lifecycle.ViewModelProviders;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -27,7 +25,7 @@ import javax.inject.Singleton;
 
 import bakingapp.jurkin.bakingapp.App;
 import bakingapp.jurkin.bakingapp.BuildConfig;
-import bakingapp.jurkin.bakingapp.data.RecipeService;
+import bakingapp.jurkin.bakingapp.api.RecipeService;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -79,27 +77,24 @@ public final class ApiModule {
     @Singleton
     OkHttpClient provideOkHttpClient(Cache cache, Interceptor apiKeyInterceptor,
                                       HttpLoggingInterceptor loggingInterceptor) {
-        OkHttpClient client = new OkHttpClient.Builder()
+
+        return new OkHttpClient.Builder()
                 .addInterceptor(apiKeyInterceptor)
                 .addInterceptor(loggingInterceptor)
                 .cache(cache)
                 .build();
-
-        return client;
     }
 
     @Provides
     @Singleton
     Retrofit provideRetrofit(Gson gson, OkHttpClient client) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://go.udacity.com/android-baking-app-json")
+        return new Retrofit.Builder()
+                .baseUrl("http://go.udacity.com/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory
                         .createWithScheduler(Schedulers.newThread()))
                 .client(client)
                 .build();
-
-        return retrofit;
     }
 
     @Provides

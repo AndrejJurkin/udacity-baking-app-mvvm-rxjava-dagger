@@ -28,8 +28,11 @@ import dagger.Provides;
  * Created by Andrej Jurkin on 7/9/17.
  */
 
-@Module(includes = ApiModule.class)
-public final class AppModule {
+@Module(includes = {
+        ApiModule.class,
+        ViewModelModule.class
+})
+final class AppModule {
 
     @Singleton
     @Provides
