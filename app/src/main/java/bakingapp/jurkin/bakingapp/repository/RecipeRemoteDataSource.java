@@ -22,9 +22,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import bakingapp.jurkin.bakingapp.data.RecipeService;
+import bakingapp.jurkin.bakingapp.api.RecipeService;
 import bakingapp.jurkin.bakingapp.model.Recipe;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by andrej on 12/07/17.
@@ -39,7 +39,7 @@ public class RecipeRemoteDataSource {
         this.recipeService = recipeService;
     }
 
-    public Observable<List<Recipe>> getRecipes() {
-        return null;
+    Observable<List<Recipe>> getRecipes() {
+        return recipeService.getRecipes();
     }
 }

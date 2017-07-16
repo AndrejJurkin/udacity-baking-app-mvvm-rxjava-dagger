@@ -16,27 +16,22 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.di;
+package bakingapp.jurkin.bakingapp.di.module;
 
-import javax.inject.Singleton;
+import android.content.Context;
 
 import bakingapp.jurkin.bakingapp.App;
 import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by Andrej Jurkin on 7/9/17.
+ * Created by Andrej Jurkin on 7/16/17.
  */
 
 @Module(includes = {
         ApiModule.class,
         ViewModelModule.class
 })
-final class AppModule {
+public class AppModule {
 
-    @Singleton
-    @Provides
-    App provideApp(App app) {
-        return app;
-    }
 }

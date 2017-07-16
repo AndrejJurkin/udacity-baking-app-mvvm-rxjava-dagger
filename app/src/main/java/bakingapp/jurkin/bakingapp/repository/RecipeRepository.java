@@ -16,20 +16,31 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.data;
+package bakingapp.jurkin.bakingapp.repository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import bakingapp.jurkin.bakingapp.model.Recipe;
-import retrofit2.http.GET;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
- * Created by Andrej Jurkin on 7/9/17.
+ * Created by Andrej Jurkin on 7/15/17.
  */
 
-public interface RecipeService {
+public class RecipeRepository {
 
-    @GET("android-baking-app-json")
-    Observable<List<Recipe>> getRecipes();
+    private RecipeRemoteDataSource remoteData;
+    private RecipeLocalDataSource localData;
+
+    @Inject
+    public RecipeRepository(RecipeRemoteDataSource remote, RecipeLocalDataSource local) {
+        this.remoteData = remote;
+        this.localData = local;
+    }
+
+    public Observable<List<Recipe>> getRecipes() {
+        return this.remoteData.getRecipes();
+    }
 }

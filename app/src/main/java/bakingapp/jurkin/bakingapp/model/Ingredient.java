@@ -29,7 +29,8 @@ public class Ingredient {
     @SerializedName("ingredient")
     private String name;
 
-    private int quantity;
+    private float quantity;
+
     private String measure;
 
     public String getName() {
@@ -40,11 +41,11 @@ public class Ingredient {
         this.name = name;
     }
 
-    public int getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 

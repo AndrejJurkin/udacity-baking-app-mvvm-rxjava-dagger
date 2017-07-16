@@ -16,18 +16,26 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.repository;
+package bakingapp.jurkin.bakingapp.di.module;
 
-import javax.inject.Inject;
+import android.arch.lifecycle.ViewModel;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import dagger.MapKey;
 
 /**
- * Created by andrej on 14/07/17.
+ * Created by Andrej Jurkin on 7/16/17.
  */
 
-public class RecipeLocalDataSource {
-
-    @Inject
-    public RecipeLocalDataSource() {
-
-    }
+@Documented
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@MapKey
+@interface ViewModelKey {
+    Class<? extends ViewModel> value();
 }

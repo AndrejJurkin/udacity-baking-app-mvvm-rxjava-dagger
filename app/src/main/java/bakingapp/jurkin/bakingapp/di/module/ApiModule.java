@@ -16,7 +16,7 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.di;
+package bakingapp.jurkin.bakingapp.di.module;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,14 +28,14 @@ import bakingapp.jurkin.bakingapp.BuildConfig;
 import bakingapp.jurkin.bakingapp.api.RecipeService;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Andrej Jurkin on 7/9/17.
@@ -43,6 +43,7 @@ import rx.schedulers.Schedulers;
 
 @Module
 public final class ApiModule {
+
     private static final int OK_HTTP_CACHE_SIZE = 10 * 1024 * 1024;
     private static final String GSON_DATE_FORMAT = "yyyy-MM-dd";
 
@@ -75,11 +76,9 @@ public final class ApiModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Cache cache, Interceptor apiKeyInterceptor,
-                                      HttpLoggingInterceptor loggingInterceptor) {
+    OkHttpClient provideOkHttpClient(Cache cache, HttpLoggingInterceptor loggingInterceptor) {
 
         return new OkHttpClient.Builder()
-                .addInterceptor(apiKeyInterceptor)
                 .addInterceptor(loggingInterceptor)
                 .cache(cache)
                 .build();
@@ -91,7 +90,7 @@ public final class ApiModule {
         return new Retrofit.Builder()
                 .baseUrl("http://go.udacity.com/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory
+                .addCallAdapterFactory(RxJava2CallAdapterFactory
                         .createWithScheduler(Schedulers.newThread()))
                 .client(client)
                 .build();

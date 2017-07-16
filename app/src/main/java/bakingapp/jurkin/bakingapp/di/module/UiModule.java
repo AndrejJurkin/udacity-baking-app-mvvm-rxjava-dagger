@@ -16,35 +16,25 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.di;
+package bakingapp.jurkin.bakingapp.di.module;
 
-import javax.inject.Singleton;
+import com.squareup.haha.perflib.Main;
 
-import bakingapp.jurkin.bakingapp.App;
 import bakingapp.jurkin.bakingapp.MainActivity;
-import dagger.BindsInstance;
-import dagger.Component;
-import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjectionModule;
+import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListFragment;
+import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
 /**
- * Created by Andrej Jurkin on 7/9/17.
+ * Created by Andrej Jurkin on 7/16/17.
  */
 
-@Singleton
-@Component(modules = {
-        AppModule.class,
-})
-interface AppComponent {
+@Module
+public abstract class UiModule {
 
-    @Component.Builder
-    interface Builder {
+    @ContributesAndroidInjector
+    abstract MainActivity contributeMainActivity();
 
-        @BindsInstance
-        Builder app(App app);
-
-        AppComponent build();
-    }
-
-    void inject(App app);
+    @ContributesAndroidInjector
+    abstract RecipeListFragment contributeRecipeListFragment();
 }

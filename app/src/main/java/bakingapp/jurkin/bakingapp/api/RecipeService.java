@@ -16,26 +16,20 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.di;
+package bakingapp.jurkin.bakingapp.api;
 
-import android.arch.lifecycle.ViewModel;
+import java.util.List;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import dagger.MapKey;
+import bakingapp.jurkin.bakingapp.model.Recipe;
+import io.reactivex.Observable;
+import retrofit2.http.GET;
 
 /**
- * Created by Andrej Jurkin on 7/15/17.
+ * Created by Andrej Jurkin on 7/9/17.
  */
 
-@Documented
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@MapKey
-@interface ViewModelKey {
-    Class<? extends ViewModel> value();
+public interface RecipeService {
+
+    @GET("android-baking-app-json")
+    Observable<List<Recipe>> getRecipes();
 }

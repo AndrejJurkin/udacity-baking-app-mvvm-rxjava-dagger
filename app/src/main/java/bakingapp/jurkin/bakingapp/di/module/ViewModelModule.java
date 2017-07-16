@@ -16,32 +16,29 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.view.recipelist;
+package bakingapp.jurkin.bakingapp.di.module;
 
 import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import bakingapp.jurkin.bakingapp.model.Recipe;
-import bakingapp.jurkin.bakingapp.repository.RecipeRepository;
-import io.reactivex.Observable;
+import bakingapp.jurkin.bakingapp.view.ViewModelFactory;
+import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListViewModel;
+import dagger.Binds;
+import dagger.Module;
+import dagger.multibindings.IntoMap;
 
 /**
- * Created by andrej on 12/07/17.
+ * Created by Andrej Jurkin on 7/16/17.
  */
 
-public class RecipeListViewModel extends ViewModel {
+@Module
+public abstract class ViewModelModule {
 
-    private RecipeRepository repo;
+    @Binds
+    @IntoMap
+    @ViewModelKey(RecipeListViewModel.class)
+    abstract ViewModel bindRepoViewModel(RecipeListViewModel recipeListViewModel);
 
-    @Inject
-    public RecipeListViewModel(RecipeRepository repository) {
-        this.repo = repository;
-    }
-
-    Observable<List<Recipe>> getRecipes() {
-        return repo.getRecipes();
-    }
+    @Binds
+    abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);
 }

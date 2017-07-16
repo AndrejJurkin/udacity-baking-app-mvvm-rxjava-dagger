@@ -16,7 +16,7 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.di;
+package bakingapp.jurkin.bakingapp.view;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -28,12 +28,11 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 /**
- * Created by Andrej Jurkin on 7/15/17.
+ * Created by Andrej Jurkin on 7/16/17.
  */
 
 @Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {
-
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 
     @Inject
@@ -45,6 +44,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         Provider<? extends ViewModel> creator = creators.get(modelClass);
+
         if (creator == null) {
             for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {
                 if (modelClass.isAssignableFrom(entry.getKey())) {

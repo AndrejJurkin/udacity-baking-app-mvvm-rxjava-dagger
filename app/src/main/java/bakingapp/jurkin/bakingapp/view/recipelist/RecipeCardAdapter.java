@@ -19,6 +19,7 @@
 package bakingapp.jurkin.bakingapp.view.recipelist;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +43,16 @@ import butterknife.ButterKnife;
 
 public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.ViewHolder> {
 
+    public interface OnRecipeClickListener {
+
+        void onRecipeClick(Recipe recipe);
+    }
+
     @NonNull
     private List<Recipe> data;
+
+    @Nullable
+    private OnRecipeClickListener onRecipeClickListener;
 
     public RecipeCardAdapter() {
         this.data = new ArrayList<>();
@@ -59,7 +68,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Recipe recipe = data.get(position);
+        final Recipe recipe = data.get(position);
 
         Glide.with(holder.itemView.getContext())
                 .load(recipe.getImageUrl())
@@ -67,6 +76,12 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
                 .into(holder.image);
 
         holder.title.setText(recipe.getName());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (onRecipeClickListener != null) {
+                onRecipeClickListener.onRecipeClick(recipe);
+            }
+        });
     }
 
     @Override
@@ -76,6 +91,11 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
 
     public void setData(@NonNull List<Recipe> data) {
         this.data = data;
+        this.notifyDataSetChanged();
+    }
+
+    public void setOnRecipeClickListener(@Nullable OnRecipeClickListener onRecipeClickListener) {
+        this.onRecipeClickListener = onRecipeClickListener;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

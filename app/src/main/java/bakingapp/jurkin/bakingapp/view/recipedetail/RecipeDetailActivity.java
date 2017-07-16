@@ -16,22 +16,27 @@
  *
  */
 
-package bakingapp.jurkin.bakingapp.di;
+package bakingapp.jurkin.bakingapp.view.recipedetail;
 
-import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListViewModel;
-import dagger.Binds;
-import dagger.Module;
-import dagger.multibindings.IntoMap;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+
+import bakingapp.jurkin.bakingapp.model.Recipe;
 
 /**
  * Created by Andrej Jurkin on 7/15/17.
  */
 
-@Module
-abstract class ViewModelModule {
+public class RecipeDetailActivity extends AppCompatActivity {
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(RecipeListViewModel.class)
-    abstract RecipeListViewModel bindRecipeListViewModel();
+    public static final String ARG_RECIPE = "arg_recipe";
+
+    public static void startActivity(Context context, Recipe recipe) {
+        Intent i = new Intent(context, RecipeDetailActivity.class);
+        i.putExtra(ARG_RECIPE, recipe);
+        context.startActivity(i);
+    }
 }
