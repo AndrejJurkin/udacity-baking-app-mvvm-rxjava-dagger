@@ -18,27 +18,29 @@
 
 package bakingapp.jurkin.bakingapp.view.recipedetail;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+
+import javax.inject.Inject;
 
 import bakingapp.jurkin.bakingapp.model.Recipe;
+import bakingapp.jurkin.bakingapp.repository.RecipeRepository;
 import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
 
 /**
- * Created by Andrej Jurkin on 7/15/17.
+ * Created by andrej on 28/07/17.
  */
 
-public class RecipeDetailActivity extends AppCompatActivity {
+public class RecipeDetailViewModel extends ViewModel {
 
-    public static final String ARG_RECIPE = "arg_recipe";
+    private RecipeRepository repository;
 
-    public static void startActivity(Context context, Recipe recipe) {
-        Intent i = new Intent(context, RecipeDetailActivity.class);
-        i.putExtra(ARG_RECIPE, recipe);
-        context.startActivity(i);
+    @Inject
+    public RecipeDetailViewModel(RecipeRepository repository) {
+        this.repository = repository;
+    }
+
+    public Observable<Recipe> getRecipe(int id) {
+        return repository.getRecipe(id);
     }
 }

@@ -18,7 +18,14 @@
 
 package bakingapp.jurkin.bakingapp.repository;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -30,17 +37,37 @@ import io.reactivex.Observable;
  */
 
 public class RecipeRepository {
-
     private RecipeRemoteDataSource remoteData;
-    private RecipeLocalDataSource localData;
+
+    @Nullable
+    private List<Recipe> recipeCache;
 
     @Inject
-    public RecipeRepository(RecipeRemoteDataSource remote, RecipeLocalDataSource local) {
+    RecipeRepository(RecipeRemoteDataSource remote) {
         this.remoteData = remote;
-        this.localData = local;
     }
 
+    @NonNull
     public Observable<List<Recipe>> getRecipes() {
-        return this.remoteData.getRecipes();
+        if (recipeCache != null) {
+            return Observable.just(recipeCache);
+         }
+
+         return remoteData.getRecipes().doOnNext(recipes -> this.recipeCache = recipes);
+    }
+
+    @NonNull
+    public Observable<Recipe> getRecipe(int id) {
+        if (recipeCache == null) {
+            return Observable.error(new Throwable("Recipe not found."));
+        }
+
+        for (Recipe r : recipeCache) {
+            if (r.getId() == id) {
+                return Observable.just(r);
+            }
+        }
+
+        return Observable.error(new Throwable("Recipe not found."));
     }
 }
