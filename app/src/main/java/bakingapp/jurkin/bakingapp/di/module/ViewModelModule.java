@@ -22,6 +22,8 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import bakingapp.jurkin.bakingapp.view.ViewModelFactory;
+import bakingapp.jurkin.bakingapp.view.recipedetail.RecipeDetailFragment;
+import bakingapp.jurkin.bakingapp.view.recipedetail.RecipeDetailViewModel;
 import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListViewModel;
 import dagger.Binds;
 import dagger.Module;
@@ -38,6 +40,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RecipeListViewModel.class)
     abstract ViewModel bindRepoViewModel(RecipeListViewModel recipeListViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RecipeDetailViewModel.class)
+    abstract ViewModel bindRecipeDetailViewModel(RecipeDetailViewModel recipeDetailViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);

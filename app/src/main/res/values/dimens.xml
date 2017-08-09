@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ /*
   ~  * Copyright 2017 Andrej Jurkin
@@ -17,9 +18,10 @@
   -->
 
 <resources>
-    <string name="app_name">Baking App</string>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
 
-    <string name="ingredients">Ingredients</string>
-    
-    <string name="preparation">Preparation</string>
+    <dimen name="card_padding_left">24dp</dimen>
+    <dimen name="card_padding_right">16dp</dimen>
+    <dimen name="card_padding_bottom">24dp</dimen>
 </resources>

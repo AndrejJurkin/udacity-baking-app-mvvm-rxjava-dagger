@@ -21,6 +21,7 @@ package bakingapp.jurkin.bakingapp.di.module;
 import com.squareup.haha.perflib.Main;
 
 import bakingapp.jurkin.bakingapp.MainActivity;
+import bakingapp.jurkin.bakingapp.view.recipedetail.RecipeDetailFragment;
 import bakingapp.jurkin.bakingapp.view.recipelist.RecipeListFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -37,4 +38,7 @@ public abstract class UiModule {
 
     @ContributesAndroidInjector
     abstract RecipeListFragment contributeRecipeListFragment();
+
+    @ContributesAndroidInjector
+    abstract RecipeDetailFragment contributeRecipeDetailFragment();
 }

@@ -20,7 +20,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.recipedetail.RecipeDetailActivity" />
+        <activity
+            android:name=".view.recipedetail.RecipeDetailActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

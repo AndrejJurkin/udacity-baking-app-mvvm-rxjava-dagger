@@ -18,15 +18,15 @@
 
 package bakingapp.jurkin.bakingapp.view.recipedetail;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 
+import bakingapp.jurkin.bakingapp.R;
 import bakingapp.jurkin.bakingapp.model.Recipe;
-import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
+import butterknife.ButterKnife;
 
 /**
  * Created by Andrej Jurkin on 7/15/17.
@@ -34,11 +34,31 @@ import io.reactivex.subjects.PublishSubject;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
-    public static final String ARG_RECIPE = "arg_recipe";
+    public static final String EXTRA_RECIPE_ID = "arg_recipe_id";
 
     public static void startActivity(Context context, Recipe recipe) {
         Intent i = new Intent(context, RecipeDetailActivity.class);
-        i.putExtra(ARG_RECIPE, recipe);
+        i.putExtra(EXTRA_RECIPE_ID, recipe.getId());
         context.startActivity(i);
+    }
+
+    private RecipeDetailFragment recipeDetailFragment;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recipe_detail);
+        ButterKnife.bind(this);
+
+        this.recipeDetailFragment = (RecipeDetailFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_recipe_detail);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        int recipeId = getIntent().getIntExtra(EXTRA_RECIPE_ID, -1);
+        this.recipeDetailFragment.bindViewModel(recipeId);
     }
 }

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import bakingapp.jurkin.bakingapp.model.Recipe;
 import io.reactivex.Observable;
@@ -36,6 +37,7 @@ import io.reactivex.Observable;
  * Created by Andrej Jurkin on 7/15/17.
  */
 
+@Singleton
 public class RecipeRepository {
     private RecipeRemoteDataSource remoteData;
 
